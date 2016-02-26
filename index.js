@@ -9,11 +9,12 @@
 const alaska = require('alaska');
 
 /**
- * hintText 提示信息 String "",
- * disabled 是否可用 boolean false,
- * errorText 错误信息 String"",
- * fullWidth 是否全屏 Boolean false,
- * value 显示内容 String "",
+ * hintText 提示信息 String 默认值 "",
+ * disabled 是否可用 boolean 默认值 false,
+ * errorText 错误信息 String 默认值 "",
+ * fullWidth 是否全屏 Boolean 默认值 false,
+ * value 显示内容 String 默认值 "",
+ * recognition 识别类型 String 默认值 mobile     可用值 mobile 手机号   tel 电话号  all 所有
  * onChange 内容改变事件 function
  * */
 exports.template = __dirname + '/lib/view.js';

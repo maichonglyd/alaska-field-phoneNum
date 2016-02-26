@@ -7,7 +7,9 @@
 'use strict';
 import React from 'react';
 import TextField from 'material-ui/lib/text-field';
-
+const TYPE_MOBILE = "mobile";
+const TYPE_TEL = "tel";
+const TYPE_ALL = "all";
 export default class View extends React.Component{
   constructor(props){
     super(props);
@@ -15,6 +17,7 @@ export default class View extends React.Component{
       hintText:props.hintText || "",
       disabled:props.disabled || false,
       errorText:"",
+      recognition:props.recognition || TYPE_MOBILE,
       fullWidth:props.fullWidth || false,
       value:props.value || "",
       onChange:props.onChange
@@ -24,9 +27,17 @@ export default class View extends React.Component{
   _onBlurHandle(event){
     let value=event.target.value.trim();
     let reg=/^1((3[0-9])|(4[57])|(5[01256789])|(7[0678])|(8[0-8]))[0-9]{8}$/g;
-    let reg1=/^[0-9]{3}[-]?[0-9]{8}$/g;
-    let reg2=/^[0-9]{4}[-]?[0-9]{7}$/g;
-    if(value != "" && !reg.test(value) && !reg1.test(value) && !reg2.test(value)){
+    let reg1=/^0[1-9][0-9][-]?[0-9]{8}$/g;
+    let reg2=/^0[1-9][0-9]{2}[-]?[0-9]{7,8}$/g;
+    let result = false;
+    if(this.state.recognition == TYPE_ALL){
+      result = (value != "" && !reg.test(value) && !reg1.test(value) && !reg2.test(value));
+    }else if(this.state.recognition == TYPE_MOBILE){
+      result = (value != "" && !reg.test(value))
+    }else if(this.state.recognition = TYPE_TEL){
+      result = (value != "" && !reg1.test(value) && !reg2.test(value));
+    }
+    if(result){
       this.setState({errorText:this.errText==""?"号码格式不正确！":this.errText});
     }else{
       this.setState({errorText:""});
